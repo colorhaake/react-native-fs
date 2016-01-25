@@ -77,7 +77,9 @@ public class Downloader extends AsyncTask<DownloadParams, int[], DownloadResult>
         }
 
         total += count;
-        publishProgress(new int[] { lengthOfFile, total });
+        // Marked the following line to avoid calling too much UI thread to update progress.
+        // It will hang app with downloading tasks.
+        // publishProgress(new int[] { lengthOfFile, total });
         output.write(data, 0, count);
       }
 
